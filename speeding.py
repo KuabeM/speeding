@@ -1,28 +1,47 @@
+# define docopt string
+"""Speeding: Small utility to perform speedtests periodically.
 
+Usage:
+    speeding.py [--iter=<iter>] [--delay=<delay>]
+    speeding.py (-h | --help)
+    speeding.py (-v | --version)
+
+Options:
+    -h --help   Show this screen
+    -v --version    Show version
+    --iter=<iter>   Set number of iterations    [default: 10]
+    --delay=<delay> Set time delay between speedtests   [default: 30]
+
+"""
+from docopt import docopt
 import datetime
 import time
 import subprocess
 import sys
 
+arguments = docopt(__doc__, version='Speeding 0.1.0')
+
 # handle command line args
-if len(sys.argv) > 1:
-    iterations = int(sys.argv[1])
+if not arguments.get('--iter') == False:
+    iterations = int(arguments.get('--iter'))
     print("iterations: " + str(iterations))
 else:
     iterations = 10
+    print("iterations: " + str(iterations))
 
-if len(sys.argv) == 3:
-    delay = int(sys.argv[2])
+if not arguments.get('--delay') == False:
+    delay = int(arguments.get('--delay'))   
     print("delay: " + str(delay))
 else:
     delay = 30
+    print("delay: " + str(delay))
 
-
-# open file handle
-file  = open("log.md", "a+")
 
 # get current time
 now = datetime.datetime.now()
+
+# open file handle
+file  = open("log_" + str(now.day) + "." + str(now.month) + "." + str(now.year) + ".md" , "a+")
 # write daily header
 file.write("## log of " + str(now.day) + "." + str(now.month) + "." + str(now.year) + "\n")
 file.write("|   Time   |   Download    |    Upload    |\n")
