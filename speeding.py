@@ -52,6 +52,7 @@ file.write("|----------|---------------|--------------|\n")
 i = 0
 while i < iterations:
     # write time column
+    now = datetime.datetime.now()
     file.write("| " + str(now.hour).zfill(2) + ":" + str(now.minute).zfill(2) + ":" + str(now.second) + " | ")
     # run speedtest
     speed_cmd = subprocess.run( ["speedtest"], stdout= subprocess.PIPE)
