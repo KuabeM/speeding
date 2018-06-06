@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # define docopt string
 """Speeding: Small utility to perform speedtests periodically.
 
