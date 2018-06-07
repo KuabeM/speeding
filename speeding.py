@@ -45,14 +45,16 @@ now = datetime.datetime.now()
 # open file handle
 file  = open("log_" + str(now.day) + "." + str(now.month) + "." + str(now.year) + ".md" , "a+")
 # write daily header
-file.write("## log of " + str(now.day) + "." + str(now.month) + "." + str(now.year) + "\n")
+file.write("\n## log of " + str(now.day) + "." + str(now.month) + "." + str(now.year) + "\n")
 file.write("|   Time   |   Download    |    Upload    |\n")
 file.write("|----------|---------------|--------------|\n")
+file.close()
 
 i = 0
 while i < iterations:
     # write time column
     now = datetime.datetime.now()
+    file  = open("log_" + str(now.day) + "." + str(now.month) + "." + str(now.year) + ".md" , "a+")
     file.write("| " + str(now.hour).zfill(2) + ":" + str(now.minute).zfill(2) + ":" + str(now.second) + " | ")
     # run speedtest
     speed_cmd = subprocess.run( ["speedtest"], stdout= subprocess.PIPE)
@@ -67,9 +69,6 @@ while i < iterations:
     file.write( download[10:] + " | " + upload[8:] + " |\n")
     # wait some time
     time.sleep(int(delay))
+    file.close()
 
     i = i+1
-
-# close file
-file.write("\n")
-file.close()
