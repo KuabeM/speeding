@@ -21,22 +21,22 @@ import time
 import subprocess
 import sys
 
-arguments = docopt(__doc__, version='Speeding 0.1.0')
+arguments = docopt(__doc__, version='Speeding 0.1.1')
 
 # handle command line args
 if not arguments.get('--iter') == False:
     iterations = int(arguments.get('--iter'))
-    print("iterations: " + str(iterations))
+    print("Running for " + str(iterations) + " iterations")
 else:
     iterations = 10
-    print("iterations: " + str(iterations))
+    print("Running for " + str(iterations) + " iterations")
 
 if not arguments.get('--delay') == False:
     delay = int(arguments.get('--delay'))   
-    print("delay: " + str(delay))
+    print("with a delay of " + str(delay) + "s")
 else:
     delay = 30
-    print("delay: " + str(delay))
+    print("with a delay of " + str(delay) + "s")
 
 
 # get current time
@@ -55,7 +55,7 @@ while i < iterations:
     # write time column
     now = datetime.datetime.now()
     file  = open("log_" + str(now.day) + "." + str(now.month) + "." + str(now.year) + ".md" , "a+")
-    file.write("| " + str(now.hour).zfill(2) + ":" + str(now.minute).zfill(2) + ":" + str(now.second) + " | ")
+    file.write("| " + str(now.hour).zfill(2) + ":" + str(now.minute).zfill(2) + ":" + str(now.second).zfill(2) + " | ")
     # run speedtest
     speed_cmd = subprocess.run( ["speedtest"], stdout= subprocess.PIPE)
     speed_out = speed_cmd.stdout.decode("utf-8")
@@ -64,7 +64,7 @@ while i < iterations:
     download = speed_out[6]
     upload = speed_out[8]
     # print to stdout
-    print("Iteration " + str(i+1) + ": " + download + ", " + upload)
+    print("Iteration " + str(i+1).zfill(2) + ": " + download + ", " + upload)
     # write to file
     file.write( download[10:] + " | " + upload[8:] + " |\n")
     # wait some time
