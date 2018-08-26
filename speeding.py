@@ -45,7 +45,7 @@ now = datetime.datetime.now()
 # open file handle
 file  = open("log_" + str(now.day) + "." + str(now.month) + "." + str(now.year) + ".md" , "a+")
 # write daily header
-file.write("\n## log of " + str(now.day) + "." + str(now.month) + "." + str(now.year) + "\n")
+file.write("\n## logging " + str(now.hour) + ":" + str(now.minute) + ", " + str(now.day) + "." + str(now.month) + "." + str(now.year) + "\n")
 file.write("|   Time   |   Download    |    Upload    |\n")
 file.write("|----------|---------------|--------------|\n")
 file.close()
